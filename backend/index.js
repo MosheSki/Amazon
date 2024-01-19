@@ -15,12 +15,6 @@ app.use(express.urlencoded({ extended: false }));
 const PORT = process.env.PORT || 8080;
 
 //Routes
-app.post("/addUser", async (req, res) => {
-  //const user = req.body.user
-  const { user } = req.body;
-  const newUser = await User.create(req.body);
-  res.send(newUser);
-});
 
 mongoose
   .connect(process.env.MONGO_CONNECTION)
