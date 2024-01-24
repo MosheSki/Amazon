@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import { getError } from "../utils";
 import { Store } from "../Store";
 
-const SignIn = () => {
+const SignInPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -67,4 +67,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignInPage;

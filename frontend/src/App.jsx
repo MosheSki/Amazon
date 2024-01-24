@@ -4,8 +4,8 @@ import Container from "react-bootstrap/Container";
 import { HomePage } from "./Pages/HomePage.jsx";
 import Footer from "./Components/Shared/Footer.jsx";
 import Header from "./Components/Shared/Header.jsx";
-import SignIn from "./Pages/SignIn.jsx";
-// import SignUp from "./Pages/SignUp.jsx";
+import SignIn from "./Pages/SignInPage.jsx";
+import SignUp from "./Pages/SignUpPage.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -20,7 +20,7 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage />}></Route>
               <Route path="/signin" element={<SignIn />}></Route>
-              {/* <Route path="/signup" element={<SignUp />}></Route> */}
+              <Route path="/signup" element={<SignUp />}></Route>
             </Routes>
           </Container>
         </main>

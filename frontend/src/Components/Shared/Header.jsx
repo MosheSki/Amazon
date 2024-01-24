@@ -1,7 +1,7 @@
 import NavBar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import { LinkContainer } from "react-router-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SearchBox from "./SearchBox";
 import NavDropDown from "react-bootstrap/NavDropdown";
 import { useContext } from "react";
@@ -9,9 +9,12 @@ import { Store } from "../../Store";
 
 const Header = () => {
   const { state, dispatch: ctxDispatch } = useContext(Store);
+  const navigate = useNavigate();
   const { userInfo } = state;
   const signoutHandler = () => {
     ctxDispatch({ type: "USER_SIGNOUT" });
+    localStorage.removeItem("userInfo");
+    navigate("/signin");
   };
   return (
     <header>
