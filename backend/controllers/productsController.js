@@ -16,4 +16,13 @@ const getProductById = async (req, res) => {
   }
 };
 
-export { getProducts, getProductById };
+const getProductByToken = async (req, res) => {
+  const product = await Product.findOne({ token: req.params.token });
+  if (product) {
+    res.send(product);
+  } else {
+    res.status(404).send({ message: "Product was not found" });
+  }
+};
+
+export { getProducts, getProductById, getProductByToken };

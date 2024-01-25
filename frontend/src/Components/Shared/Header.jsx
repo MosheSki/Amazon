@@ -6,11 +6,15 @@ import SearchBox from "./SearchBox";
 import NavDropDown from "react-bootstrap/NavDropdown";
 import { useContext } from "react";
 import { Store } from "../../Store";
+import Badge from "react-bootstrap/Badge";
 
 const Header = () => {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const navigate = useNavigate();
-  const { userInfo } = state;
+  const {
+    userInfo,
+    cart: { cartItems },
+  } = state;
   const signoutHandler = () => {
     ctxDispatch({ type: "USER_SIGNOUT" });
     localStorage.removeItem("userInfo");
@@ -33,6 +37,11 @@ const Header = () => {
           <nav className="d-flex align-items-center justify-contect-end me-2 ms-4">
             <Link to="/cart" className="nav-link">
               <i className="fas fa-shopping-cart text-white"></i>
+              {cartItems.length > 0 && (
+                <Badge pill bg="danger">
+                  {cartItems.reduce((a, c) => a + c.quantity, 0)}
+                </Badge>
+              )}
             </Link>
           </nav>
           {userInfo ? (
