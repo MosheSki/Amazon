@@ -18,7 +18,10 @@ const Header = () => {
   const signoutHandler = () => {
     ctxDispatch({ type: "USER_SIGNOUT" });
     localStorage.removeItem("userInfo");
-    navigate("/signin");
+    localStorage.removeItem("cartItems");
+    localStorage.removeItem("shippingAddress");
+    localStorage.removeItem("paymentMethod");
+    navigate("/signin"); //not working. to do: when user is not signed in dont let him add items to cart!
   };
   return (
     <header>

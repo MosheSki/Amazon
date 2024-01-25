@@ -7,7 +7,11 @@ const storeReducer = (state, { type, payload }) => {
     //   return { ...state, userInfo: action.payload };
     // }
     case "USER_SIGNOUT": {
-      return { ...state, userInfo: null };
+      return {
+        ...state,
+        userInfo: null,
+        cart: { cartItems: [], shippingAddress: {}, paymentMethod: "" },
+      };
     }
 
     case "ADD_TO_CART": {
