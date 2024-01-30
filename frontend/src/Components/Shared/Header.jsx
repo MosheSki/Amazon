@@ -1,7 +1,7 @@
 import NavBar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import { LinkContainer } from "react-router-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import SearchBox from "./SearchBox";
 import NavDropDown from "react-bootstrap/NavDropdown";
 import { useContext } from "react";
@@ -11,6 +11,7 @@ import Badge from "react-bootstrap/Badge";
 const Header = () => {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const navigate = useNavigate();
+  const location = useLocation();
   const {
     userInfo,
     cart: { cartItems },
@@ -27,6 +28,14 @@ const Header = () => {
     <header>
       <NavBar bg="dark" variant="dark">
         <Container>
+          <Link onClick={() => navigate(-1)}>
+            {location.pathname !== "/" && (
+              <i className="fa fa-arrow-left text-white align-arrow-right">
+                {" "}
+                Back
+              </i>
+            )}
+          </Link>
           <LinkContainer to="/">
             <NavBar.Brand>
               <img

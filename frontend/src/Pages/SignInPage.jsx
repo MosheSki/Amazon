@@ -1,10 +1,10 @@
 import axios from "axios";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Title from "../Components/Shared/Title";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/esm/Button";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getError } from "../utils";
 import { Store } from "../Store";
@@ -13,7 +13,15 @@ const SignInPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { dispatch: ctxDispatch } = useContext(Store);
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { userInfo } = state;
+  const { search } = useLocation();
+  const redirectUrl = new URLSearchParams(search);
+  const redirectValue = redirectUrl.get("redirect");
+  const redirect = redirectValue ? redirectValue : "/";
+  useEffect(() => {
+    if (userInfo) navigate(redirect);
+  }, [navigate, redirect, userInfo]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -24,7 +32,7 @@ const SignInPage = () => {
       });
       ctxDispatch({ type: "USER_SIGNIN", payload: data });
       localStorage.setItem("userInfo", JSON.stringify(data));
-      navigate("/");
+      navigate(redirect);
     } catch (error) {
       toast.error(getError(error));
     }
@@ -56,7 +64,7 @@ const SignInPage = () => {
         </div>
         <div className="mb-3">
           New Customer?
-          <Link to="/signUp">Create your Account</Link>
+          <Link to={`/signUp?redirect=${redirect}`}>Create your Account</Link>
         </div>
         <div className="mb-3">
           Forgot your Password?

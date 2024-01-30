@@ -13,7 +13,6 @@ const storeReducer = (state, { type, payload }) => {
         cart: { cartItems: [], shippingAddress: {}, paymentMethod: "" },
       };
     }
-
     case "ADD_TO_CART": {
       const newItem = payload;
       const existingItem = state.cart.cartItems.find(
@@ -28,6 +27,18 @@ const storeReducer = (state, { type, payload }) => {
       localStorage.setItem("cartItems", JSON.stringify(cartItems));
 
       return { ...state, cart: { ...state.cart, cartItems } };
+    }
+    case "REMOVE_PRODUCT": {
+      const cartItems = state.cart.cartItems.filter(
+        (product) => product._id !== payload._id
+      );
+      localStorage.setItem("cartItems", JSON.stringify(cartItems));
+      return { ...state, cart: { ...state.cart, cartItems } };
+    }
+
+    case "SAVE_SHIPPING_ADDRESS": {
+      localStorage.setItem("shippingAddress", JSON.stringify(payload));
+      return { ...state, cart: { ...state.cart, shippingAddress: payload } };
     }
 
     default:

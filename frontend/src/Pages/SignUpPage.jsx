@@ -17,12 +17,16 @@ const SignUpPage = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, SetConfirmPassword] = useState("");
 
-  const { search } = useLocation();
-  const redirectInUrl = new URLSearchParams(search).get("redirect");
-  const redirect = redirectInUrl ? redirectInUrl : "/";
-
   const { state, dispatch: ctxDispatch } = useContext(Store);
+
   const { userInfo } = state;
+  const { search } = useLocation();
+  const redirectUrl = new URLSearchParams(search);
+  const redirectValue = redirectUrl.get("redirect");
+  const redirect = redirectValue ? redirectValue : "/";
+  useEffect(() => {
+    if (userInfo) navigate(redirect);
+  }, [navigate, redirect, userInfo]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -45,11 +49,11 @@ const SignUpPage = () => {
       toast.error(getError(error));
     }
   };
-  useEffect(() => {
-    if (userInfo) {
-      navigate(redirect);
-    }
-  }, [navigate, redirect, userInfo]);
+  // useEffect(() => {
+  //   if (userInfo) {
+  //     navigate(redirect);
+  //   }
+  // }, [navigate, redirect, userInfo]);
   return (
     <Container className="small-container">
       <Title title="Sign-up" />
@@ -91,7 +95,8 @@ const SignUpPage = () => {
           <Button type="submit">Sign Up</Button>
         </div>
         <div className="mb-3">
-          Already have an account? <Link to={`/signin`}>Sign in</Link>
+          Already have an account?{" "}
+          <Link to={`/signIn?redirect=${redirect}`}>Sign in</Link>
         </div>
       </Form>
     </Container>
