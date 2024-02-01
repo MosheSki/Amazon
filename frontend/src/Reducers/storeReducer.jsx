@@ -41,6 +41,10 @@ const storeReducer = (state, { type, payload }) => {
       return { ...state, cart: { ...state.cart, shippingAddress: payload } };
     }
 
+    case "SAVE_PAYMENT_METHOD": {
+      return { ...state, cart: { ...state.cart, paymentMethod: payload } };
+    }
+
     default:
       return { ...state };
   }
