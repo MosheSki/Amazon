@@ -45,6 +45,12 @@ const storeReducer = (state, { type, payload }) => {
       return { ...state, cart: { ...state.cart, paymentMethod: payload } };
     }
 
+    case "CLEAR_CART": {
+      return {
+        ...state,
+        cart: { cartItems: [], shippingAddress: {}, paymentMethod: "" },
+      };
+    }
     default:
       return { ...state };
   }
